@@ -1,4 +1,6 @@
-# To run this docker compose use "docker compose --env-file ./config.env up -d"
+# To run this docker compose use "docker compose up -d"
+# Enviroment variable must be in .env in the same file location
+# If you want to specify a diferent .env file use "docker compose --env-file ./folder/name.env up -d"
 
 version: '3.7'
 services:
