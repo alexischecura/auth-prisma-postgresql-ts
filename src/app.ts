@@ -1,12 +1,9 @@
 require('dotenv').config()
 import express, { Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import config from 'config';
 
-import validateEnv from './utils/validateEnv';
 import { redisClient, connectRedisDB } from './databases/redis.database';
-
-validateEnv();
+import { env } from './configs/env.config';
 
 connectRedisDB();
 
@@ -21,7 +18,7 @@ async function bootstrap() {
       message,
     });
   });
-  const port = config.get<number>('port');
+  const port = env.PORT
   app.listen(port, () => {
     console.log(`Server on port: ${port}`);
   });
