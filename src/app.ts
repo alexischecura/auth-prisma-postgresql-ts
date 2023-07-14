@@ -2,7 +2,7 @@ require('dotenv').config()
 import express, { Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 
-import { redisClient, connectRedisDB } from './databases/redis.database';
+import { connectRedisDB } from './databases/redis.database';
 import { env } from './configs/env.config';
 
 connectRedisDB();
@@ -10,21 +10,20 @@ connectRedisDB();
 const prisma = new PrismaClient();
 const app = express();
 
-async function bootstrap() {
+async function startServer() {
   app.get('/api/test', async (_, res: Response) => {
-    const message = await redisClient.get('connectMessage');
     res.status(200).json({
       status: 'success',
-      message,
+      message: 'Server running',
     });
   });
   const port = env.PORT
   app.listen(port, () => {
-    console.log(`Server on port: ${port}`);
+    console.log(`Server running in port: ${port}`);
   });
 }
 
-bootstrap()
+startServer()
   .catch((err) => {
     throw err;
   })
